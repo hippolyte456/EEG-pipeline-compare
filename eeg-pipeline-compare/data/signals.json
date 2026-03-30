@@ -1,1 +1,27 @@
-# all possible data specificities
+{
+  "version": "0.1",
+  "comment": "Tous les paramètres d'acquisition EEG susceptibles de varier entre pipelines/datasets",
+  "acquisition_parameters": {
+    "hardware": {
+      "system":         ["BrainProducts", "Biosemi", "EGI", "OpenBCI", "Neuralynx", "Natus", "ANT", "g.tec"],
+      "amplifier_type": ["active", "passive", "dry"],
+      "cap_type":       ["gel", "dry", "saline"]
+    },
+    "electrodes": {
+      "n_channels":     [8, 16, 32, 64, 128, 256],
+      "layout":         ["10-20", "10-10", "10-5", "custom"],
+      "reference":      ["Cz", "mastoids", "average", "REST", "linked_ears", "nose"]
+    },
+    "sampling": {
+      "sfreq_hz":       [250, 256, 500, 512, 1000, 1024, 2048],
+      "resolution_bit": [16, 24, 32]
+    },
+    "paradigm": {
+      "task_type":      ["resting_state", "event_related", "steady_state", "continuous"],
+      "stimulus_type":  ["visual", "auditory", "somatosensory", "cognitive"]
+    },
+    "subject": {
+      "population":     ["healthy", "clinical", "pediatric", "elderly"]
+    }
+  }
+}

@@ -1,10 +1,35 @@
-# all possible type of analysis
-
-| analyse         | preprocessing spécifique  |
-| --------------- | ------------------------- |
-| ERP             | baseline, epochs strictes |
-| fréquence       | filtrage adapté           |
-| temps-fréquence | compromis temps/freq      |
-| connectivité    | nettoyage + source        |
-| source          | MRI + modèle tête         |
-| ML              | normalisation + features  |
+{
+  "version": "0.1",
+  "analyses": {
+    "erp": {
+      "label": "ERP",
+      "sub_analyses": ["oddball", "n100", "p300", "lpp"],
+      "requires_epochs": true
+    },
+    "frequency": {
+      "label": "Fréquence",
+      "sub_analyses": ["resting_state", "alpha_peak", "bandpower"],
+      "requires_epochs": false
+    },
+    "time_frequency": {
+      "label": "Temps-fréquence",
+      "sub_analyses": ["ers_erd", "morlet", "event_locked_tfr"],
+      "requires_epochs": true
+    },
+    "connectivity": {
+      "label": "Connectivité",
+      "sub_analyses": ["coherence", "pli", "aec", "granger"],
+      "requires_epochs": false
+    },
+    "source": {
+      "label": "Source",
+      "sub_analyses": ["dipole", "beamformer", "roi_time_series"],
+      "requires_epochs": false
+    },
+    "ml": {
+      "label": "Machine Learning",
+      "sub_analyses": ["decoding", "feature_classification", "cross_subject"],
+      "requires_epochs": true
+    }
+  }
+}
