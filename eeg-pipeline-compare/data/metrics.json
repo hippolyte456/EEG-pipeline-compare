@@ -1,1 +1,55 @@
-#evaluation metrics
+{
+	"version": "0.1.0",
+	"metrics": [
+		{
+			"id": "n_channels",
+			"category": "structural",
+			"description": "Number of retained channels"
+		},
+		{
+			"id": "n_samples",
+			"category": "structural",
+			"description": "Number of temporal samples"
+		},
+		{
+			"id": "global_rms",
+			"category": "amplitude",
+			"description": "Global root-mean-square amplitude"
+		},
+		{
+			"id": "kurtosis",
+			"category": "distribution",
+			"description": "Excess kurtosis of flattened signal"
+		},
+		{
+			"id": "line_noise_ratio_50hz",
+			"category": "spectral",
+			"description": "Relative 50Hz energy versus broadband PSD"
+		},
+		{
+			"id": "bandpower_delta",
+			"category": "spectral",
+			"description": "Average power in [1,4) Hz"
+		},
+		{
+			"id": "bandpower_theta",
+			"category": "spectral",
+			"description": "Average power in [4,8) Hz"
+		},
+		{
+			"id": "bandpower_alpha",
+			"category": "spectral",
+			"description": "Average power in [8,13) Hz"
+		},
+		{
+			"id": "bandpower_beta",
+			"category": "spectral",
+			"description": "Average power in [13,30) Hz"
+		},
+		{
+			"id": "bandpower_gamma",
+			"category": "spectral",
+			"description": "Average power in [30,45) Hz"
+		}
+	]
+}

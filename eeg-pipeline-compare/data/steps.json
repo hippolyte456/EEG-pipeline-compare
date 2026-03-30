@@ -1,12 +1,43 @@
-# all existing preprocessing steps
-
-
-cleaning:
-    - filtering
-    - ...
-    
-
-
-extraction:
-    -connectivity
-    -ERPs
+{
+    "version": "0.1.0",
+    "step_groups": {
+        "ingestion": [
+            "import_raw",
+            "metadata_alignment",
+            "channel_mapping"
+        ],
+        "cleaning": [
+            "reference",
+            "detrend",
+            "filter",
+            "line_noise_notch",
+            "artifact_rejection",
+            "ica"
+        ],
+        "segmentation": [
+            "event_detection",
+            "epoching",
+            "baseline"
+        ],
+        "feature_extraction": [
+            "averaging",
+            "psd",
+            "tfr",
+            "connectivity",
+            "source_estimation",
+            "feature_vector"
+        ],
+        "modeling": [
+            "normalization",
+            "split",
+            "model_training",
+            "evaluation"
+        ]
+    },
+    "step_aliases": {
+        "car": "reference",
+        "bandpass": "filter",
+        "autoreject": "artifact_rejection",
+        "epochs": "epoching"
+    }
+}

@@ -1,10 +1,41 @@
-# all possible type of analysis
-
-| analyse         | preprocessing spécifique  |
-| --------------- | ------------------------- |
-| ERP             | baseline, epochs strictes |
-| fréquence       | filtrage adapté           |
-| temps-fréquence | compromis temps/freq      |
-| connectivité    | nettoyage + source        |
-| source          | MRI + modèle tête         |
-| ML              | normalisation + features  |
+{
+	"version": "0.1.0",
+	"analysis_types": [
+		{
+			"id": "erp",
+			"label": "ERP",
+			"sub_analyses": ["oddball", "n100_p300", "lpp"],
+			"recommended_steps": ["reference", "filter", "artifact_rejection", "epoching", "baseline", "averaging"]
+		},
+		{
+			"id": "frequency",
+			"label": "Fréquence",
+			"sub_analyses": ["resting_alpha", "beta_reactivity", "bandpower_summary"],
+			"recommended_steps": ["reference", "filter", "artifact_rejection", "psd"]
+		},
+		{
+			"id": "time_frequency",
+			"label": "Temps-fréquence",
+			"sub_analyses": ["ers_erd", "morlet_tfr", "event_locked_tfr"],
+			"recommended_steps": ["reference", "filter", "artifact_rejection", "epoching", "tfr"]
+		},
+		{
+			"id": "connectivity",
+			"label": "Connectivité",
+			"sub_analyses": ["coherence", "pli", "aec"],
+			"recommended_steps": ["reference", "filter", "artifact_rejection", "source_optional", "connectivity"]
+		},
+		{
+			"id": "source",
+			"label": "Source",
+			"sub_analyses": ["inverse_solution", "roi_time_series", "source_power"],
+			"recommended_steps": ["coregistration", "forward_model", "inverse_model", "source_estimation"]
+		},
+		{
+			"id": "ml",
+			"label": "Machine Learning",
+			"sub_analyses": ["feature_classification", "cross_subject_decoding", "regression"],
+			"recommended_steps": ["feature_extraction", "normalization", "split", "model_training", "evaluation"]
+		}
+	]
+}

@@ -1,1 +1,59 @@
-# all possible data specificities
+{
+	"version": "0.1.0",
+	"signal_divergences": [
+		{
+			"id": "shape_mismatch",
+			"label": "Shape mismatch",
+			"category": "structural",
+			"description": "Different number of channels and/or samples between derivatives."
+		},
+		{
+			"id": "channel_order_mismatch",
+			"label": "Channel order mismatch",
+			"category": "structural",
+			"description": "Same channels available but order differs."
+		},
+		{
+			"id": "missing_channels",
+			"label": "Missing channels",
+			"category": "structural",
+			"description": "One derivative removed channels that are present in the other."
+		},
+		{
+			"id": "amplitude_scaling",
+			"label": "Amplitude scaling",
+			"category": "amplitude",
+			"description": "Global RMS ratio significantly differs (unit/reference mismatch candidate)."
+		},
+		{
+			"id": "polarity_flip",
+			"label": "Polarity flip",
+			"category": "amplitude",
+			"description": "Strong negative correlation indicates potential sign inversion."
+		},
+		{
+			"id": "time_shift",
+			"label": "Temporal shift",
+			"category": "temporal",
+			"description": "Latency offset across derivatives (event alignment issue candidate)."
+		},
+		{
+			"id": "line_noise_residual",
+			"label": "Residual line noise",
+			"category": "spectral",
+			"description": "50/60Hz energy remains elevated after cleaning."
+		},
+		{
+			"id": "bandpower_imbalance",
+			"label": "Bandpower imbalance",
+			"category": "spectral",
+			"description": "Differences in canonical EEG bands (delta/theta/alpha/beta/gamma)."
+		},
+		{
+			"id": "high_kurtosis",
+			"label": "High kurtosis",
+			"category": "distribution",
+			"description": "Heavy-tailed distribution, possible residual artifacts."
+		}
+	]
+}
