@@ -44,7 +44,7 @@ derivatives should be .fif ? .eeg .vhdr ? others allowed ?  [what format are ok 
 2 types of outputs comparison matrix :
 
 - Dual derivatives/ comparison : Visualisation of multiple metrics
-- Multiple pipeline comparison : Visualisation of one metrics
+- Multiple pipeline comparison : Visualisation of one metric (much more efficient so no need to aggregate between run ses etc)
 
 ---
 
