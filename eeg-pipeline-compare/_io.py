@@ -1,4 +1,5 @@
 """Load EEG derivatives. V1: .fif via MNE, .npy/.csv via numpy."""
+
 from __future__ import annotations
 from pathlib import Path
 import numpy as np

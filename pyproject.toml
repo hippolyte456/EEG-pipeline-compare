@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eeg-pipeline-compare"
+version = "0.1.0"
+description = "Compare two EEG derivatives pipelines"
+readme = "README.md"
+license = { text = "GPL-3.0-or-later" }
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=1.26",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+mne = ["mne>=1.7"]
+dev = ["pre-commit", "ruff"]

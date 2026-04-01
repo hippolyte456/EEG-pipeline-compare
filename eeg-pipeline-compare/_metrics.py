@@ -1,20 +1,24 @@
-
 """Extract individual metrics from a loaded derivative.
 V1: MNE-aware when raw/epochs/ica objects are present, otherwise signal-level.
 """
+
 from __future__ import annotations
 import numpy as np
 
-#il y a deja une fonction mne qui compare des fichiers de maniere globale je pense ?
+# il y a deja une fonction mne qui compare des fichiers de maniere globale je pense ?
 # mais il y a peutetre des trasnformations à faire pour généraliser pour des pipelines n'utilisant pas mne
-# pour l'instant on commence en asusmant des .fif mais il faudra pouvoir élargir je pense. 
+# pour l'instant on commence en asusmant des .fif mais il faudra pouvoir élargir je pense.
 
 
 def get_bad_channels(data: dict) -> dict:
     raw = data.get("raw")
     if raw is not None:
         bads = list(raw.info.get("bads", []))
-        return {"bad_channels": bads, "n_bad": len(bads), "rate": len(bads) / max(len(raw.ch_names), 1)}
+        return {
+            "bad_channels": bads,
+            "n_bad": len(bads),
+            "rate": len(bads) / max(len(raw.ch_names), 1),
+        }
     bads = data.get("bads", [])
     return {"bad_channels": bads, "n_bad": len(bads), "rate": 0.0}
 
@@ -27,15 +31,22 @@ def get_epoch_rejection(data: dict) -> dict:
     n_kept = sum(1 for d in epochs.drop_log if len(d) == 0)
     n_rejected = n_total - n_kept
     return {
-        "n_total": n_total, "n_kept": n_kept,
-        "n_rejected": n_rejected, "rejection_rate": n_rejected / max(n_total, 1),
+        "n_total": n_total,
+        "n_kept": n_kept,
+        "n_rejected": n_rejected,
+        "rejection_rate": n_rejected / max(n_total, 1),
     }
 
 
 def get_ica_components(data: dict) -> dict:
     ica = data.get("ica")
     if ica is None:
-        return {"n_components": None, "excluded": None, "n_excluded": None, "exclusion_rate": None}
+        return {
+            "n_components": None,
+            "excluded": None,
+            "n_excluded": None,
+            "exclusion_rate": None,
+        }
     excluded = list(ica.exclude)
     return {
         "n_components": ica.n_components_,
@@ -52,7 +63,9 @@ def get_line_noise(data: dict, line_freq: float = 50.0) -> float | None:
         return None
     psd = (np.abs(np.fft.rfft(signal, axis=1)) ** 2).mean(axis=0)
     freqs = np.fft.rfftfreq(signal.shape[1], d=1.0 / sfreq)
-    return float(psd[int(np.argmin(np.abs(freqs - line_freq)))] / max(psd.mean(), 1e-12))
+    return float(
+        psd[int(np.argmin(np.abs(freqs - line_freq)))] / max(psd.mean(), 1e-12)
+    )
 
 
 def get_signal_quality_metrics(data: dict) -> dict:
@@ -61,12 +74,12 @@ def get_signal_quality_metrics(data: dict) -> dict:
     if signal is None:
         return {}
     flat = signal.reshape(-1).astype(float)
-    rms_ch = np.sqrt(np.mean(signal ** 2, axis=1))
+    rms_ch = np.sqrt(np.mean(signal**2, axis=1))
     c = flat - np.mean(flat)
-    var = np.mean(c ** 2)
-    kurtosis = float(np.mean(c ** 4) / max(var ** 2, 1e-24) - 3)
+    var = np.mean(c**2)
+    kurtosis = float(np.mean(c**4) / max(var**2, 1e-24) - 3)
     return {
-        "rms": float(np.sqrt(np.mean(flat ** 2))),
+        "rms": float(np.sqrt(np.mean(flat**2))),
         "rms_per_channel_mean": float(np.mean(rms_ch)),
         "rms_per_channel_std": float(np.std(rms_ch)),
         "mean": float(np.mean(flat)),
@@ -86,7 +99,13 @@ def get_psd_metrics(data: dict) -> dict:
         mask = (freqs >= fmin) & (freqs < fmax)
         return float(psd[mask].mean()) if np.any(mask) else None
 
-    return {"delta": _bp(1, 4), "theta": _bp(4, 8), "alpha": _bp(8, 13), "beta": _bp(13, 30), "gamma": _bp(30, 45)}
+    return {
+        "delta": _bp(1, 4),
+        "theta": _bp(4, 8),
+        "alpha": _bp(8, 13),
+        "beta": _bp(13, 30),
+        "gamma": _bp(30, 45),
+    }
 
 
 def get_snr(data: dict) -> float | None:

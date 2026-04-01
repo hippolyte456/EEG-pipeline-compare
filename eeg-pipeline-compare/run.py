@@ -1,5 +1,5 @@
-
 """Entry point: compare two EEG derivatives."""
+
 from _io import load
 from _metrics import compute_metrics
 from _viz import dual_derivative_figure as viz
@@ -9,6 +9,7 @@ fpath2 = ""
 
 if __name__ == "__main__":
     import argparse
+
     p = argparse.ArgumentParser(description="Compare two EEG derivatives")
     p.add_argument("--a", default=fpath1 or None, required=not fpath1)
     p.add_argument("--b", default=fpath2 or None, required=not fpath2)
